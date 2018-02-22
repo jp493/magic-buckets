@@ -35,11 +35,13 @@ class BucketList extends Component {
 	                    <p> { item.description } </p>
 	                  </div>
 	                </div>
+									{/*
 									<div className="col-sm-12">
 					          <div className="jumbotron text-center">
 					            <h2>Get Access to My Buckets By Logging In</h2>
 					          </div>
 					        </div>
+									*/}
 	              </div>
 	          ))}
 					</div>
