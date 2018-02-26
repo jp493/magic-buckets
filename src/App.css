@@ -34,6 +34,12 @@ ul.nav {
 	float: right;
 	padding-top: 5px;
 }
+.navbar-header {
+	background: url("/Logomakr_7sxs2a.png") no-repeat 10px 8px;
+	background-size: 20px;
+	padding-left: 18px;
+	animation: mymove 5s infinite;
+}
 
 .form-group{
 	margin-bottom: 15px;
