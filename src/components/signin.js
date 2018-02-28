@@ -74,7 +74,7 @@ class LoginInForm extends Component {
 			<div className="main-login main-center">
 				<form className="form-horizontal" onSubmit={this.onSubmit}>
 					<div className="form-group">
-						<label for="email" className="cols-sm-2 control-label">Your Email</label>
+						<label className="cols-sm-2 control-label">Your Email</label>
 						<div className="cols-sm-10">
 							<div className="input-group">
 								<span className="input-group-addon"><i className="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
@@ -92,7 +92,7 @@ class LoginInForm extends Component {
 					</div>
 
 					<div className="form-group">
-						<label for="password" className="cols-sm-2 control-label">Your Password</label>
+						<label className="cols-sm-2 control-label">Your Password</label>
 						<div className="cols-sm-10">
 							<div className="input-group">
 								<span className="input-group-addon"><i className="glyphicon glyphicon-dashboard" aria-hidden="true"></i></span>

@@ -79,7 +79,7 @@ class SignUpForm extends Component {
 			<div className="main-login main-center">
 				<form className="form-horizontal" onSubmit={this.onSubmit}>
 					<div className="form-group">
-						<label for="username" className="cols-sm-2 control-label">Your Name</label>
+						<label className="cols-sm-2 control-label">Your Name</label>
 						<div className="cols-sm-10">
 							<div className="input-group">
 								<span className="input-group-addon"><i className="glyphicon glyphicon-share" aria-hidden="true"></i></span>
@@ -97,7 +97,7 @@ class SignUpForm extends Component {
 					</div>
 
 					<div className="form-group">
-						<label for="email" className="cols-sm-2 control-label">Your Email</label>
+						<label className="cols-sm-2 control-label">Your Email</label>
 						<div className="cols-sm-10">
 							<div className="input-group">
 								<span className="input-group-addon"><i className="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
@@ -115,7 +115,7 @@ class SignUpForm extends Component {
 					</div>
 
 					<div className="form-group">
-						<label for="password" className="cols-sm-2 control-label">Your Password</label>
+						<label className="cols-sm-2 control-label">Your Password</label>
 						<div className="cols-sm-10">
 							<div className="input-group">
 								<span className="input-group-addon"><i className="glyphicon glyphicon-dashboard" aria-hidden="true"></i></span>
@@ -133,7 +133,7 @@ class SignUpForm extends Component {
 					</div>
 
 					<div className="form-group">
-						<label for="confirmation" className="cols-sm-2 control-label">Confirm Password</label>
+						<label className="cols-sm-2 control-label">Confirm Password</label>
 						<div className="cols-sm-10">
 							<div className="input-group">
 								<span className="input-group-addon"><i className="glyphicon glyphicon-check" aria-hidden="true"></i></span>
@@ -150,8 +150,40 @@ class SignUpForm extends Component {
 						</div>
 					</div>
 
+					<div className="form-group">
+              <label className="control-label col-sm-2 gender">Gender</label>
+              <div className="col-sm-10">
+                  <div className="row">
+                      <div className="col-sm-6">
+                          <label className="radio-inline">
+                              <input type="radio" id="femaleRadio" value="Female" />Female
+                          </label>
+													<label className="radio-inline">
+                              <input type="radio" id="maleRadio" value="Male" />Male
+                          </label>
+                      </div>
+          				</div>
+								</div>
+          </div>
+
+					<div className="form-group">
+              <label className="col-sm-2 control-label theme">Theme</label>
+              <div className="col-sm-4">
+                  <select id="Select" className="form-control">
+                      <option>Select</option>
+                      <option>Earth</option>
+                      <option>Mars</option>
+                      <option>Saturn</option>
+                      <option>Uranus</option>
+                      <option>Jupiter</option>
+                      <option>Neptune</option>
+                      <option>Venus</option>
+                  </select>
+              </div>
+          </div>
+
 					<div className="form-group ">
-							<button type="submit" className="btn btn-primary btn-lg btn-block login-button"  disabled={isInvalid}>Register</button>
+							<button type="button" className="btn btn-primary btn-lg btn-block login-button"  disabled={isInvalid}>Register</button>
 					</div>
 
 					{ error && <p> {error.message}</p> }

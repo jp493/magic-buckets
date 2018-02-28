@@ -9,14 +9,14 @@ class BucketList extends Component {
 		this.state = { buckets: [] };
 	}
 
-	getAllBuckets() {
-		getBucketsData().then((buckets) => {
+	getAllBuckets(params) {
+		getBucketsData(params).then((buckets) => {
       this.setState({ buckets });
     });
 	}
 
 	componentDidMount() {
-		this.getAllBuckets();
+		this.getAllBuckets('buckets');
 	}
 
   render() {
@@ -24,25 +24,20 @@ class BucketList extends Component {
     return (
 			<div>
 				<div className="container">
-      		<h3 className="text-center">Bucket List</h3>
+      		<h3 className="text-center">List All Buckets</h3>
 					{ buckets.map((item, index) => (
-	              <div className="col-sm-6" key={index}>
-	                <div className="panel panel-primary">
-	                  <div className="panel-heading">
-	                    <h3 className="panel-title"> <span className="btn">#{ item.id }</span></h3>
-	                  </div>
-	                  <div className="panel-body">
-	                    <p> { item.description } </p>
-	                  </div>
-	                </div>
-									{/*
-									<div className="col-sm-12">
-					          <div className="jumbotron text-center">
-					            <h2>Get Access to My Buckets By Logging In</h2>
-					          </div>
-					        </div>
-									*/}
-	              </div>
+							<div className="col-md-3" key={index}>
+		            <div className={`square-service-block ${item.type}`}>
+		               <a href="#">
+		                 <div className="ssb-icon"><i className="fa fa-cubes" aria-hidden="true"></i></div>
+		                 <h2 className= "ssb-title">{ item.type }</h2>
+										 <div className="panel-body">
+ 	                    <p> { item.points }</p>
+ 	                    <p> { item.belongsTo }</p>
+ 	                  </div>
+		               </a>
+		            </div>
+		          </div>
 	          ))}
 					</div>
 			</div>

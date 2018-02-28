@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import withAuthentication from './withAuthentication';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 import BucketList from './BucketList';
+import Mission from './Mission';
 import Nav from './Nav';
 import signup from './signup';
 import login from './signin';
@@ -31,7 +32,8 @@ class MagicBuckets extends Component {
 					<Nav />
 					<Route path="/signin" component={login} />
 					<Route path="/signup" component={signup} />
-					<Route path="/list" component={BucketList} />
+					<Route path="/list" component={Mission} />
+					<Route path="/bucket" component={BucketList} />
 				</div>
 			</Router>
 	  )
