@@ -160,6 +160,9 @@ h2.ssb-title {
   padding:0;
   text-transform: uppercase;
 }
+.container {
+	margin-top: 15px;
+}
 @media (min-width: 768px) {
   .col-sm-6 {
     width: auto;
