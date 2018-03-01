@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { SignUpLink } from './signup';
 import * as routes from '../constants/route';
-import auth from '../firebase/auth';
+import auth from '../firebase';
 
 const LoginInPage = ({ history }) =>
 	<div className="container">
@@ -37,6 +37,7 @@ class LoginInForm extends Component {
 	}
 
 	onSubmit = (e) => {
+		e.preventDefault();
 		const {
 			email,
 			password,

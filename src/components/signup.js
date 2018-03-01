@@ -13,6 +13,9 @@ const Initial_State = {
 	email: '',
 	password: '',
 	confirmation: '',
+	gender: '',
+	theme: '',
+	isParent: false,
 	error: null,
 };
 
@@ -40,6 +43,9 @@ class SignUpForm extends Component {
 			username,
 			email,
 			password,
+			gender,
+			theme,
+			isParent,
 		} = this.state;
 
 		const byPropKey = (propertyName, value) => () => ({
@@ -66,6 +72,8 @@ class SignUpForm extends Component {
 			email,
 			password,
 			confirmation,
+			gender,
+			theme,
 			error,
 		} = this.state;
 
@@ -156,10 +164,10 @@ class SignUpForm extends Component {
                   <div className="row">
                       <div className="col-sm-6">
                           <label className="radio-inline">
-                              <input type="radio" id="femaleRadio" value="Female" />Female
+                              <input type="radio" id="boyRadio" value="B" />Boy
                           </label>
 													<label className="radio-inline">
-                              <input type="radio" id="maleRadio" value="Male" />Male
+                              <input type="radio" id="girlRadio" value="G" />Girl
                           </label>
                       </div>
           				</div>

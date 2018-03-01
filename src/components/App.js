@@ -23,9 +23,34 @@ class MagicBuckets extends Component {
 	  //     ? this.setState(() => ({ authUser }))
 	  //     : this.setState(() => ({ authUser: null }));
 	  // });
+		// firebase.auth().onAuthStateChanged((user) => {
+    //   if (user) {
+    //     this.setState({authUser: true});
+    //   }
+    // });
 	}
 
+	getUser() {
+    const user = firebase.auth().currentUser;
+    if (this.state.authUser) {
+      return (
+        <div>
+          Logged in as: {user.email}
+        </div>
+      );
+    }
+  }
+
+  requireAuth(nextState, replace) {
+    if (!this.state.authUser) {
+      replace({
+        pathname: '/',
+      })
+    }
+  }
+
 	render () {
+		console.log(this.state);
 		return (
 			<Router>
 				<div>

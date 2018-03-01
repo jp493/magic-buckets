@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { getBucketsData } from '../utils/showbuckets-api';
+import Mission from './Mission';
 
 
 class BucketList extends Component {
 	constructor() {
 		super()
-		this.state = { buckets: [] };
+		this.state = {
+			buckets: [],
+			showbox: false,
+		};
+		this.toggleBox = this.toggleBox.bind(this);
 	}
+
+	toggleBox() {
+    // check if box is currently opened
+    const { showbox } = this.state;
+    this.setState({
+      showbox: !showbox,
+    });
+  }
 
 	getAllBuckets(params) {
 		getBucketsData(params).then((buckets) => {
@@ -20,7 +33,7 @@ class BucketList extends Component {
 	}
 
   render() {
-		const { buckets } = this.state;
+		const { buckets, showbox } = this.state;
     return (
 			<div>
 				<div className="container">
@@ -33,9 +46,12 @@ class BucketList extends Component {
 		                 <h2 className= "ssb-title">{ item.type }</h2>
 										 <div className="panel-body">
  	                    <p> { item.points }</p>
- 	                    <p> { item.belongsTo }</p>
+											<button type="button" class="btn btn-info" onClick={this.toggleBox}><span class="glyphicon glyphicon-share"></span>View List</button>
  	                  </div>
 		               </a>
+									 {showbox && (
+          					<Mission assignTo={item.belongsTo} type={item.type}/>
+        						)}
 		            </div>
 		          </div>
 	          ))}
