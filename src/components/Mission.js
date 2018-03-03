@@ -1,46 +1,65 @@
 import React, { Component } from 'react';
-import '../App.css';
-import { getBucketsData } from '../utils/showbuckets-api';
-
+import AddMission from './AddMission';
+import ShowMission from './ShowMission';
+import axios from "axios";
 
 class MissionList extends Component {
 	constructor() {
-		super()
-		this.state = { missions: [] };
-	}
-
-	getAllMissions(params) {
-		getBucketsData(params).then((missions) => {
-      this.setState({ missions });
-    });
+		super();
+		this.state = {
+			mission: '',
+			assignTo: '',
+			missions: []
+		};
 	}
 
 	componentDidMount() {
-		this.getAllMissions('todos');
+		this.refresh();
 	}
 
-  render() {
-		const { missions } = this.state;
-		const { assignTo, type } = this.props;
+	clearInput = () => {
+    this.setState({ mission: "" });
+  };
 
-		const filteredElements = typeof (assignTo) === 'undefined' ? missions : missions
-      .filter((item, index) => item.assignTo.includes(assignTo) && item.isActive && item.type.includes(type))
+	refresh = () => {
+		axios.get("/todos").then((res) => {
+			this.setState({ missions: res.data.items });
+		});
+	};
+
+  addMission = () => {
+		const {mission,assignTo}=this.state;
+		axios
+			.post(`/todos/${mission}&${assignTo}`)
+			.then(this.refresh)
+			.catch((err) => {
+				console.log(err);
+			});
+    this.clearInput();
+  };
+
+	handleChange = e => {
+    this.setState({
+			[e.target.name]: e.target.value
+    });
+  };
+
+	render() {
+		const { missions, assignTo, type } = this.props;
 
     return (
 				<div className="container">
-						{filteredElements.map((item, index) => (
-							<div id="missions-for-saving" class="collapse in" className="col-sm-6" key={index}>
-								<div className={`panel panel-primary ${item.isActive?'':'disabled'}`}>
-									<div className={`panel-heading ${item.gender}`}>
-										<h3 className="panel-title"> <span className="btn">Mission #{ item.id } to {item.assignTo}</span></h3>
-									</div>
-									<div className="panel-body">
-										<p> { item.description } ({ item.points } points)</p>
-										<p><i>{item.isActive?`status: ${item.status}`:''}</i></p>
-									</div>
-								</div>
-							</div>
-						))}
+					<div className="col-md-3">
+						<AddMission
+							handleChange={this.handleChange}
+							addMission={this.addMission}
+							mission={this.state.mission}
+						/>
+					</div>
+					<ShowMission
+					 missions={missions}
+					 assignTo={assignTo}
+					 type={type} />
 				</div>
     );
   }

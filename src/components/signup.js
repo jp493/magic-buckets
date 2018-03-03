@@ -11,11 +11,11 @@ const SignUpPage = ({ history }) =>
 const Initial_State = {
 	username: '',
 	email: '',
-	password: '',
-	confirmation: '',
-	gender: '',
-	theme: '',
-	isParent: false,
+	// password: '',
+	// confirmation: '',
+	// gender: '',
+	// theme: '',
+	// isParent: false,
 	error: null,
 };
 
@@ -43,9 +43,9 @@ class SignUpForm extends Component {
 			username,
 			email,
 			password,
-			gender,
-			theme,
-			isParent,
+			// gender,
+			// theme,
+			// isParent,
 		} = this.state;
 
 		const byPropKey = (propertyName, value) => () => ({
