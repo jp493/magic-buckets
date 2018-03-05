@@ -44,22 +44,27 @@ class MissionList extends Component {
     });
   };
 
+	transferPoints = e => {
+		console.log('hhhh');
+	};
+
 	render() {
 		const { missions, assignTo, type } = this.props;
 
     return (
 				<div className="container">
-					<div className="col-md-3">
-						<AddMission
-							handleChange={this.handleChange}
-							addMission={this.addMission}
-							mission={this.state.mission}
-						/>
-					</div>
 					<ShowMission
 					 missions={missions}
 					 assignTo={assignTo}
-					 type={type} />
+					 type={type}
+					 transferPoints={this.transferPoints} />
+					 <div className="col-md-10">
+ 						<AddMission
+ 							handleChange={this.handleChange}
+ 							addMission={this.addMission}
+ 							mission={this.state.mission}
+ 						/>
+ 					</div>
 				</div>
     );
   }

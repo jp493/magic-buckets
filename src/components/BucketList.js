@@ -46,10 +46,11 @@ class BucketList extends Component {
 		const { buckets, showbox, mission, missions }=this.state;
     return (
 			<div className="container">
-      		<h3 className="text-center">List All Buckets</h3>
-					{ buckets.map((item, index) => (
-		            <div className={`square-service-block ${item.type}`}>
-									<div className="col-md-3" key={index}>
+					{ buckets
+							.filter((item, index) => (item.belongsTo.includes('Henry')))
+							.map((item, index) => (
+		            <div className={`square-service-block ${item.type}`} key={index}>
+									<div className="col-md-3">
 										<div className="col-md-3 col-sm-6">
 											<div className={item.points <50?`progress yellow`:'progress blue'}>
 													<span className="progress-left">
@@ -58,7 +59,7 @@ class BucketList extends Component {
 													<span className="progress-right">
 															<span className="progress-bar"></span>
 													</span>
-													<div className="progress-value">{ item.points }%</div>
+													<div className="progress-value">{ item.points }pt.</div>
 											</div>
 										</div>
 		               <a href="#">

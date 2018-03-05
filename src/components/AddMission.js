@@ -3,20 +3,18 @@ import React from "react";
 const AddMission = props => {
   const { handleChange, addMission, mission, assignTo } = props;
   return (
-    <div className="Add col-sm-10 form-horizontal">
-			<div className="cols-sm-10 form-group">
-				<div className="input-group">
+    <div className="Add form-horizontal container">
+			<div className="cols-sm-6 form-group float-label-control">
+					<label className="control-label">What is the mission about?</label>
 					<textarea name='mission'
 						className="form-control"
-						placeholder='What is about?'
 						onChange={handleChange}
 						value={mission} />
-				</div>
 			</div>
-			<div className="cols-sm-10 form-group">
+			<div className="cols-sm-10 form-group label-floating">
 				<div className="input-group">
 					<select name='assignTo' className="form-control" value={assignTo} onChange={handleChange}>
-            <option value=""> To Who?</option>
+            <option value=""> Assign to Who?</option>
             <option value="Henry">Henry</option>
             <option value="Faustine">Faustine</option>
           </select>
