@@ -6,7 +6,8 @@ import Mission from './Mission';
 import Nav from './Nav';
 import signup from './signup';
 import login from './signin';
-import firebase from '../firebase';
+import AddMission from './AddMission';
+// import firebase from '../firebase';
 
 class MagicBuckets extends Component {
 	constructor(props) {
@@ -30,16 +31,16 @@ class MagicBuckets extends Component {
     // });
 	}
 
-	getUser() {
-    const user = firebase.auth().currentUser;
-    if (this.state.authUser) {
-      return (
-        <div>
-          Logged in as: {user.email}
-        </div>
-      );
-    }
-  }
+	// getUser() {
+  //   const user = firebase.auth().currentUser;
+  //   if (this.state.authUser) {
+  //     return (
+  //       <div>
+  //         Logged in as: {user.email}
+  //       </div>
+  //     );
+  //   }
+  // }
 
   requireAuth(nextState, replace) {
     if (!this.state.authUser) {
@@ -59,6 +60,7 @@ class MagicBuckets extends Component {
 					<Route path="/signup" component={signup} />
 					<Route path="/list" component={Mission} />
 					<Route path="/bucket" component={BucketList} />
+					<Route path="/add" component={AddMission} />
 				</div>
 			</Router>
 	  )

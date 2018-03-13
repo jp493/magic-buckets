@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { getBucketsData } from '../utils/showbuckets-api';
+// import { getBucketsData } from '../utils/showbuckets-api';
 import Mission from './Mission';
 import axios from "axios";
 
@@ -25,20 +25,32 @@ class BucketList extends Component {
 		this.refresh();
   }
 
-	getAllBuckets(params) {//TODO: remove
-		getBucketsData(params).then((buckets) => {
-      this.setState({ buckets });
-    });
+	getAllBuckets() {
+		// getBucketsData(params).then((buckets) => {
+    //   this.setState({ buckets });
+    // });
+		axios.get("/buckets").then((res) => {
+			if (res.data.payload) {
+				this.setState({ buckets: res.data.payload });
+			}
+		});
 	}
 
 	componentDidMount() {
-		this.getAllBuckets('buckets'); //TODO: change to using axios
+		// this.getAllBuckets('buckets'); //TODO: change to using axios
 		this.refresh();
 	}
 
 	refresh = () => {
+		axios.get("/buckets").then((res) => {
+			if (res.data.payload) {
+				this.setState({ buckets: res.data.payload });
+			}
+		});
 		axios.get("/todos").then((res) => {
-			this.setState({ missions: res.data.items });
+			if (res.data.payload) {
+				this.setState({ missions: res.data.payload });
+			}
 		});
 	};
 

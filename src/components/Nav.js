@@ -40,6 +40,7 @@ const NavigationNonAuth = () =>
 		</div>
 	  <ul className="nav navbar-nav navbar-right">
 			<li><Link to={routes.BUCKET}>My Buckets</Link></li>
+			<li><Link to={routes.ADD}>Add Mission</Link></li>
 	    <li><Link to={routes.SIGN_IN}>Sign In</Link></li>
 	  </ul>
 	</nav>

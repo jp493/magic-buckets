@@ -2,20 +2,29 @@ import React, { Component } from 'react';
 import AddMission from './AddMission';
 import ShowMission from './ShowMission';
 import axios from "axios";
+import SkyLight from 'react-skylight';
 
 class MissionList extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			mission: '',
 			assignTo: '',
 			missions: []
 		};
-	}
+	};
 
 	componentDidMount() {
 		this.refresh();
-	}
+	};
+
+  _executeAfterModalClose(){
+    window.location.href = '/bucket'
+  }
+
+  _executeOnOverlayClicked(){
+    alert('Overlay clicked!');
+  }
 
 	clearInput = () => {
     this.setState({ mission: "" });
@@ -31,11 +40,13 @@ class MissionList extends Component {
 		const {mission,assignTo}=this.state;
 		axios
 			.post(`/todos/${mission}&${assignTo}`)
-			.then(this.refresh)
+			.then(this.refresh())//this.props.refresh
 			.catch((err) => {
 				console.log(err);
 			});
     this.clearInput();
+		this.dialogWithCallBacks.show();
+		// window.location.href = '/bucket'
   };
 
 	handleChange = e => {
@@ -65,6 +76,12 @@ class MissionList extends Component {
  							mission={this.state.mission}
  						/>
  					</div>
+					<SkyLight
+	          afterClose={this._executeAfterModalClose}
+	          ref={ref => this.dialogWithCallBacks = ref}
+	          title="Success">
+	            You have added mission successfully!
+	        </SkyLight>
 				</div>
     );
   }
