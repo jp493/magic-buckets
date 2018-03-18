@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import * as routes from '../constants/route';
-import auth from '../firebase/auth';
+import axios from "axios";
 
 const SignUpPage = ({ history }) =>
 	<div className="container">
@@ -11,15 +11,13 @@ const SignUpPage = ({ history }) =>
 const Initial_State = {
 	username: '',
 	email: '',
-	// password: '',
-	// confirmation: '',
-	// gender: '',
-	// theme: '',
+	password: '',
+	confirmation: '',
+	gender: '',
+	theme: '',
 	// isParent: false,
 	error: null,
 };
-
-
 
 class SignUpForm extends Component {
 	constructor(props) {
@@ -30,10 +28,6 @@ class SignUpForm extends Component {
 
 	handleChange = (e) => {
 		this.setState({
-			/*
-				ES6 property, it can used for all components name, defined in element's name
-				The benefit of doing this is to use this func for multipal changes.
-			*/
 			[e.target.name]: e.target.value
 		});
 	}
@@ -43,27 +37,24 @@ class SignUpForm extends Component {
 			username,
 			email,
 			password,
-			// gender,
-			// theme,
+			gender,
+			theme,
 			// isParent,
 		} = this.state;
 
-		const byPropKey = (propertyName, value) => () => ({
-		  [propertyName]: value,
-		});
-
 		const { history } = this.props;
 
-		auth.doCreateUserWithEmailAndPassword(email, password)
-			.then(authUser => {
-				this.setState(() => ({ ...Initial_State }));
-				history.push(routes.HOME);
-			})
-			.catch(error => {
-				this.setState(byPropKey('error', error));
-			});
-
 		e.preventDefault();
+		axios
+			.post('/signup', {email, password})
+			.then(authUser => {
+					this.setState(() => ({ ...Initial_State }));
+					history.push(routes.HOME);
+			})
+			.catch((err) => {
+				console.log(err);
+				// this.setState(byPropKey('error', error));
+			});
 	}
 
 	render() {
@@ -74,7 +65,7 @@ class SignUpForm extends Component {
 			confirmation,
 			gender,
 			theme,
-			error,
+			// error,
 		} = this.state;
 
 		const isInvalid =
@@ -191,10 +182,10 @@ class SignUpForm extends Component {
           </div>
 
 					<div className="form-group ">
-							<button type="button" className="btn btn-primary btn-lg btn-block login-button"  disabled={isInvalid}>Register</button>
+							<button type="submit" className="btn btn-primary btn-lg btn-block login-button"  disabled={isInvalid}>Register</button>
 					</div>
 
-					{ error && <p> {error.message}</p> }
+					{/*  { error && <p> {error.message}</p> }  */}
 				</form>
 			</div>
 		);

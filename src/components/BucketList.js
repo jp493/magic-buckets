@@ -10,9 +10,11 @@ class BucketList extends Component {
 		super()
 		this.state={
 			buckets: [],
-			showbox: false,
+			showbox: true,
 			mission: '',
 			missions: [],
+			assignTo: 'Faustine',
+			isEdit: false
 		};
 	}
 
@@ -25,19 +27,7 @@ class BucketList extends Component {
 		this.refresh();
   }
 
-	getAllBuckets() {
-		// getBucketsData(params).then((buckets) => {
-    //   this.setState({ buckets });
-    // });
-		axios.get("/buckets").then((res) => {
-			if (res.data.payload) {
-				this.setState({ buckets: res.data.payload });
-			}
-		});
-	}
-
 	componentDidMount() {
-		// this.getAllBuckets('buckets'); //TODO: change to using axios
 		this.refresh();
 	}
 
@@ -55,11 +45,11 @@ class BucketList extends Component {
 	};
 
   render() {
-		const { buckets, showbox, mission, missions }=this.state;
+		const { buckets, showbox, assignTo, missions, isEdit }=this.state;
     return (
 			<div className="container">
 					{ buckets
-							.filter((item, index) => (item.belongsTo.includes('Henry')))
+							.filter((item, index) => (item.belongsTo.includes(assignTo)))
 							.map((item, index) => (
 		            <div className={`square-service-block ${item.type}`} key={index}>
 									<div className="col-md-3">
@@ -78,14 +68,16 @@ class BucketList extends Component {
 		                 <div className="ssb-icon"><i className="fa fa-cubes" aria-hidden="true"></i></div>
 										 <h2 className="ssb-title">{ item.type }</h2>
 										 <div className="panel-body">
-											<button type="button" className="btn btn-info" onClick={ this.toggleBox }><span className="glyphicon glyphicon-share"></span>View List</button>
+											<button type="button" className="btn btn-info" onClick={ this.toggleBox }><span className="glyphicon glyphicon-share"></span>Toggle List</button>
  	                  </div>
 		               </a>
 									 {showbox && (item.type ==='Saving') && (
 							 		 	<Mission
-								 			 missions={this.state.missions}
-											 assignTo='Henry'
-											 type='Saving' />
+								 			 missions={missions}
+											 assignTo={assignTo}
+											 type='Saving'
+											 showbox={showbox}
+											 isEdit={isEdit} />
 							 		 )}
 		            </div>
 		          </div>

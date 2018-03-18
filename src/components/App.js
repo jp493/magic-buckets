@@ -7,6 +7,7 @@ import Nav from './Nav';
 import signup from './signup';
 import login from './signin';
 import AddMission from './AddMission';
+import Admin from './Admin';
 // import firebase from '../firebase';
 
 class MagicBuckets extends Component {
@@ -61,6 +62,7 @@ class MagicBuckets extends Component {
 					<Route path="/list" component={Mission} />
 					<Route path="/bucket" component={BucketList} />
 					<Route path="/add" component={AddMission} />
+					<Route path="/admin" component={Admin} />
 				</div>
 			</Router>
 	  )

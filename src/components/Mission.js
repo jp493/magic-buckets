@@ -14,45 +14,32 @@ class MissionList extends Component {
 		};
 	};
 
-	componentDidMount() {
-		this.refresh();
-	};
-
   _executeAfterModalClose(){
     window.location.href = '/bucket'
   }
 
-  _executeOnOverlayClicked(){
-    alert('Overlay clicked!');
-  }
-
 	clearInput = () => {
-    this.setState({ mission: "" });
+    this.setState({ mission: "", assignTo: ""});
   };
 
 	refresh = () => {
 		axios.get("/todos").then((res) => {
-			this.setState({ missions: res.data.items });
+			if (res.data.payload) {
+				this.setSate({ missions: res.data.payload });
+			}
 		});
 	};
 
   addMission = () => {
-		const {mission,assignTo}=this.state;
+		const {mission,assignTo,points}=this.state;
 		axios
-			.post(`/todos/${mission}&${assignTo}`)
-			.then(this.refresh())//this.props.refresh
+			.post(`/todos/${mission}&${assignTo}&${points}`)
+			.then(this.refresh)//this.props.refresh
 			.catch((err) => {
 				console.log(err);
 			});
     this.clearInput();
 		this.dialogWithCallBacks.show();
-		// window.location.href = '/bucket'
-  };
-
-	handleChange = e => {
-    this.setState({
-			[e.target.name]: e.target.value
-    });
   };
 
 	transferPoints = e => {
@@ -60,7 +47,7 @@ class MissionList extends Component {
 	};
 
 	render() {
-		const { missions, assignTo, type } = this.props;
+		const { missions, assignTo, type, isEdit } = this.props;
 
     return (
 				<div className="container">
@@ -68,7 +55,9 @@ class MissionList extends Component {
 					 missions={missions}
 					 assignTo={assignTo}
 					 type={type}
-					 transferPoints={this.transferPoints} />
+					 isEdit={isEdit}
+					 transferPoints={this.transferPoints}
+					/>
 					 <div className="col-md-10">
  						<AddMission
  							handleChange={this.handleChange}

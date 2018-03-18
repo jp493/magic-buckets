@@ -1,7 +1,7 @@
 import React from "react";
 
 const AddMission = props => {
-  const { handleChange, addMission, mission, assignTo } = props;
+  const { handleChange, addMission, mission, assignTo, points} = props;
   return (
     <div className="Add form-horizontal container">
 			<div className="cols-sm-6 form-group float-label-control">
@@ -17,6 +17,15 @@ const AddMission = props => {
             <option value=""> Assign to Who?</option>
             <option value="Henry">Henry</option>
             <option value="Faustine">Faustine</option>
+          </select>
+				</div>
+			</div>
+			<div className="cols-sm-10 form-group label-floating">
+				<div className="input-group">
+					<select name='points' className="form-control" value={points} onChange={handleChange}>
+            <option value="">How many points?</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
           </select>
 				</div>
 			</div>

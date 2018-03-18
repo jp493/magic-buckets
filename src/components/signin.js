@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { SignUpLink } from './signup';
 import * as routes from '../constants/route';
-import auth from '../firebase';
+import axios from "axios";
+// import auth from '../firebase';
 
 const LoginInPage = ({ history }) =>
 	<div className="container">
@@ -17,8 +18,6 @@ const Initial_State = {
 	error: null,
 };
 
-
-
 class LoginInForm extends Component {
 	constructor(props) {
 		super(props);
@@ -28,10 +27,6 @@ class LoginInForm extends Component {
 
 	handleChange = (e) => {
 		this.setState({
-			/*
-				ES6 property, it can used for all components name, defined in element's name
-				The benefit of doing this is to use this func for multipal changes.
-			*/
 			[e.target.name]: e.target.value
 		});
 	}
@@ -43,19 +38,21 @@ class LoginInForm extends Component {
 			password,
 		} = this.state;
 
-		const byPropKey = (propertyName, value) => () => ({
-		  [propertyName]: value,
-		});
+		// const byPropKey = (propertyName, value) => () => ({
+		//   [propertyName]: value,
+		// });
 
 		const { history } = this.props;
 
-		auth.doSignInWithEmailAndPassword(email, password)
-			.then(authUser => {
+		axios.post('/signin', {
+			email,
+			password
+		}).then(authUser => {
 				this.setState(() => ({ ...Initial_State }));
-				history.push(routes.HOME);
+				history.push(routes.BUCKET);
 			})
 			.catch(error => {
-				this.setState(byPropKey('error', error));
+				// this.setState(byPropKey('error', error));
 			});
 
 		e.preventDefault();
@@ -114,7 +111,7 @@ class LoginInForm extends Component {
 							<button type="submit" className="btn btn-primary btn-lg btn-block login-button"  disabled={isInvalid}>Login In</button>
 					</div>
 
-					{ error && <p> {error.message}</p> }
+					{/* { error && <p> {error.message}</p> } */}
 				</form>
 			</div>
 		);
