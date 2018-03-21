@@ -13,8 +13,8 @@ class BucketList extends Component {
 			showbox: true,
 			mission: '',
 			missions: [],
-			assignTo: 'Faustine',
-			isEdit: false
+			assignTo: 'Henry',
+			saving_points: 0
 		};
 	}
 
@@ -45,7 +45,7 @@ class BucketList extends Component {
 	};
 
   render() {
-		const { buckets, showbox, assignTo, missions, isEdit }=this.state;
+		const { buckets, showbox, assignTo, missions, saving_points}=this.state;
     return (
 			<div className="container">
 					{ buckets
@@ -77,7 +77,7 @@ class BucketList extends Component {
 											 assignTo={assignTo}
 											 type='Saving'
 											 showbox={showbox}
-											 isEdit={isEdit} />
+											 saving_points={item.points} />
 							 		 )}
 		            </div>
 		          </div>

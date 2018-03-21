@@ -10,7 +10,8 @@ class MissionList extends Component {
 		this.state = {
 			mission: '',
 			assignTo: '',
-			missions: []
+			missions: [],
+			saving_points: 0
 		};
 	};
 
@@ -42,12 +43,18 @@ class MissionList extends Component {
 		this.dialogWithCallBacks.show();
   };
 
+	handleChange = (e) => {
+		this.setState({
+			[e.target.name]: e.target.value
+		});
+	};
+
 	transferPoints = e => {
 		console.log('hhhh');
 	};
 
 	render() {
-		const { missions, assignTo, type, isEdit } = this.props;
+		const { missions, assignTo, type, saving_points } = this.props;
 
     return (
 				<div className="container">
@@ -55,7 +62,7 @@ class MissionList extends Component {
 					 missions={missions}
 					 assignTo={assignTo}
 					 type={type}
-					 isEdit={isEdit}
+					 saving_points={saving_points}
 					 transferPoints={this.transferPoints}
 					/>
 					 <div className="col-md-10">

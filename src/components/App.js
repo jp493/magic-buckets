@@ -60,9 +60,9 @@ class MagicBuckets extends Component {
 					<Route path="/signin" component={login} />
 					<Route path="/signup" component={signup} />
 					<Route path="/list" component={Mission} />
-					<Route path="/bucket" component={BucketList} />
+					<Route path="/bucket/:id" component={BucketList} />
 					<Route path="/add" component={AddMission} />
-					<Route path="/admin" component={Admin} />
+					<Route path="/admin/:props" component={Admin} />
 				</div>
 			</Router>
 	  )

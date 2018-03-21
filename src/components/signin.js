@@ -47,9 +47,9 @@ class LoginInForm extends Component {
 		axios.post('/signin', {
 			email,
 			password
-		}).then(authUser => {
+		}).then(authUser => {console.log(authUser)
 				this.setState(() => ({ ...Initial_State }));
-				history.push(routes.BUCKET);
+				history.push(routes.BUCKET+'/1/');
 			})
 			.catch(error => {
 				// this.setState(byPropKey('error', error));
