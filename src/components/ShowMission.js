@@ -26,7 +26,6 @@ const editMission = props => {
 	window.location.href = `/admin/${props}`;
 };
 
-
 const ShowMission = (...items) => {
 	const init_points = items[1];
 	return items[0].map((item, index) => (
@@ -60,7 +59,7 @@ const ShowMission = (...items) => {
 }
 
 const List = (props) => {
-	let {missions, assignTo, type, transferPoints, saving_points} = props;
+	let {missions, assignTo, type, saving_points} = props;
 	const filteredElements = typeof (assignTo) === 'undefined' ? missions : missions
 		.filter((item, index) => item.assignTo.includes(assignTo) && item.isActive && item.type.includes(type))
 	return (

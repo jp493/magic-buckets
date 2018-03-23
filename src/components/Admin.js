@@ -18,11 +18,6 @@ class Admin extends Component {
 	};
 
 	refresh = (props) => {
-		// axios.get("/buckets").then((res) => {
-		// 	if (res.data.payload) {
-		// 		this.setState({ buckets: res.data.payload });
-		// 	}
-		// }); TODO: remove if only config missions
 		axios.get(`/todos/${props}`).then((res) => {
 			if (res.data.payload) {
 				this.setState({ missions: res.data.payload });
@@ -69,11 +64,14 @@ class Admin extends Component {
 			} = this.state;
 
 	    return (
-				<div className="col-sm-6 collapse in">
-					 <Edit
-					 	missions={missions}
-						handleChange={this.handleChange}
-						handleSubmit={this.handleSubmit} />
+				<div>
+					<div className="col-sm-6 collapse in">
+						<h4>Edit a Mission:</h4>
+						 <Edit
+						 	missions={missions}
+							handleChange={this.handleChange}
+							handleSubmit={this.handleSubmit} />
+					</div>
 				</div>
 	    );
 	}

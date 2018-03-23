@@ -1,7 +1,7 @@
 import React from "react";
 
 const AddMission = props => {
-  const { handleChange, addMission, mission, assignTo, points} = props;
+  const { handleChange, addMission, mission, assignTo, points, type} = props;
   return (
     <div className="Add form-horizontal container">
 			<div className="cols-sm-6 form-group float-label-control">
@@ -29,7 +29,16 @@ const AddMission = props => {
           </select>
 				</div>
 			</div>
-      <input type="hidden" name='type' value='Saving'  />
+			<div className="cols-sm-10 form-group label-floating">
+				<div className="input-group">
+					<select name='type' className="form-control" value={type} onChange={handleChange}>
+            <option value="">Which buckets?</option>
+            <option value="Saving">Saving</option>
+            <option value="Giving">Giving</option>
+            <option value="Spending">Spending</option>
+          </select>
+				</div>
+			</div>
       <input type="hidden" name='isActive' value='true'  />
 			<div className="form-group container">
 				<button type="button" className="btn btn-info" onClick={ addMission }>

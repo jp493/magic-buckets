@@ -32,9 +32,9 @@ class MissionList extends Component {
 	};
 
   addMission = () => {
-		const {mission,assignTo,points}=this.state;
+		const {mission,assignTo,points,type}=this.state;
 		axios
-			.post(`/todos/${mission}&${assignTo}&${points}`)
+			.post(`/todos/${mission}&${assignTo}&${points}&${type}`)
 			.then(this.refresh)//this.props.refresh
 			.catch((err) => {
 				console.log(err);
@@ -49,10 +49,6 @@ class MissionList extends Component {
 		});
 	};
 
-	transferPoints = e => {
-		console.log('hhhh');
-	};
-
 	render() {
 		const { missions, assignTo, type, saving_points } = this.props;
 
@@ -63,7 +59,6 @@ class MissionList extends Component {
 					 assignTo={assignTo}
 					 type={type}
 					 saving_points={saving_points}
-					 transferPoints={this.transferPoints}
 					/>
 					 <div className="col-md-10">
  						<AddMission

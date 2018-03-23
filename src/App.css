@@ -190,6 +190,16 @@ h2.ssb-title {
 	margin-top: 15px;
 	padding:0;
 }
+
+.square-service-block.Giving .transfer,
+.square-service-block.Spending .transfer {
+	display: none;
+}
+
+.square-service-block .btn {
+	margin-right: 10px;
+}
+
 /* progress circle */
 .progress{
     width: 150px;
