@@ -1,5 +1,4 @@
 import React from 'react';
-import Admin from './Admin';
 import axios from "axios";
 
 const removeMission = index => {
@@ -8,7 +7,7 @@ const removeMission = index => {
 		.catch((err) => {
 			console.log(err);
 		});
-		window.location.href = '/bucket';
+		window.location.href = '/bucket/1';
 };
 
 const missionCompleted = props => {
@@ -19,7 +18,7 @@ const missionCompleted = props => {
 		.catch((err) => {
 			console.log(err);
 		});
-		window.location.href = '/bucket';
+		window.location.href = '/bucket/1';
 };
 
 const editMission = props => {

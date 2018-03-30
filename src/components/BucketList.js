@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import Mission from './Mission';
+import { getToken } from "../services/tokenService";
 import axios from "axios";
 import SkyLight from 'react-skylight';
 import '../App.css';
 
 class BucketList extends Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		this.state={
 			buckets: [],
 			showbox: true,
 			showTransfer: false,
 			mission: '',
 			missions: [],
-			assignTo: 'Henry'
+			assignTo: props.username
 		};
 	}
 
@@ -31,7 +32,13 @@ class BucketList extends Component {
 	}
 
 	refresh = () => {
-		axios.get("/buckets").then((res) => {
+		const token = getToken();
+		axios.get("/buckets", {
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		})
+		.then((res) => {
 			if (res.data.payload) {
 				this.setState({ buckets: res.data.payload });
 			}

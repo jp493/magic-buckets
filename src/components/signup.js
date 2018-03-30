@@ -4,9 +4,7 @@ import * as routes from '../constants/route';
 import axios from "axios";
 
 const SignUpPage = ({ history }) =>
-	<div className="container">
 		<SignUpForm history={history} />
-	</div>
 
 const Initial_State = {
 	username: '',
@@ -37,22 +35,18 @@ class SignUpForm extends Component {
 			username,
 			email,
 			password,
-			gender,
-			theme,
-			// isParent,
 		} = this.state;
 
 		const { history } = this.props;
 
 		e.preventDefault();
 		axios
-			.post('/signup', {email, password})
+			.post('/auth/signup', {email, password, username})
 			.then(authUser => {
 					this.setState(() => ({ ...Initial_State }));
 					history.push(routes.HOME);
 			})
 			.catch((err) => {
-				console.log(err);
 				// this.setState(byPropKey('error', error));
 			});
 	}
@@ -63,8 +57,6 @@ class SignUpForm extends Component {
 			email,
 			password,
 			confirmation,
-			gender,
-			theme,
 			// error,
 		} = this.state;
 
@@ -89,7 +81,7 @@ class SignUpForm extends Component {
 									onChange={this.handleChange}
 									type='text'
 									className="form-control"
-									placeholder='Full Name'
+									placeholder='Nickname'
 								/>
 							</div>
 						</div>
@@ -193,11 +185,11 @@ class SignUpForm extends Component {
 }
 
 const SignUpLink = () =>
-	<p>
+	<div>
 		Don{'\''}t have an accout?
 		{' '}
 		<Link to={routes.SIGN_UP}>Sign Up</Link>
-	</p>
+	</div>
 
 export default withRouter(SignUpPage);
 

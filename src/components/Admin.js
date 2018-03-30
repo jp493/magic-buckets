@@ -17,12 +17,13 @@ class Admin extends Component {
 		this.refresh(id);
 	};
 
-	refresh = (props) => {
-		axios.get(`/todos/${props}`).then((res) => {
+	refresh = (props) => {console.log("dfdf")
+		axios.get(`/todo/${props}`).then((res) => {
 			if (res.data.payload) {
 				this.setState({ missions: res.data.payload });
 			}
-		});
+		},
+		window.location.href = '/bucket/1');
 	};
 
 	handleSubmit = e => {

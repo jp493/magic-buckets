@@ -1,29 +1,23 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { SignUpLink } from './signup';
-import * as routes from '../constants/route';
 import axios from "axios";
-// import auth from '../firebase';
+import { setToken } from "../services/tokenService";
 
-const LoginInPage = ({ history }) =>
+const LoginInPage = (props) =>
 	<div className="container">
-		<LoginInForm history={history} />
+		<LoginInForm
+			currentUser={props.currentUser}
+		/>
 		<hr />
 		<SignUpLink />
 	</div>
 
-const Initial_State = {
-	email: '',
-	password: '',
-	error: null,
-};
-
 class LoginInForm extends Component {
-	constructor(props) {
-		super(props);
-
-		this.state = { ...Initial_State };
-	}
+	state = {
+    email: "",
+    password: ""
+  }
 
 	handleChange = (e) => {
 		this.setState({
@@ -38,31 +32,26 @@ class LoginInForm extends Component {
 			password,
 		} = this.state;
 
-		// const byPropKey = (propertyName, value) => () => ({
-		//   [propertyName]: value,
-		// });
-
-		const { history } = this.props;
-
-		axios.post('/signin', {
+		axios.post('/auth/signin', {
 			email,
 			password
-		}).then(authUser => {console.log(authUser)
-				this.setState(() => ({ ...Initial_State }));
-				history.push(routes.BUCKET+'/1/');
-			})
-			.catch(error => {
-				// this.setState(byPropKey('error', error));
-			});
-
-		e.preventDefault();
-	}
+		}).then(res => {
+			if (res.status === 200) {
+				const token = res.data.payload;
+				setToken(token);
+				this.props.currentUser();
+			}
+		})
+		.catch(error => {
+			// this.setState(byPropKey('error', error));
+		})
+	};
 
 	render() {
 		const {
 			email,
 			password,
-			error,
+			// error,
 		} = this.state;
 
 		const isInvalid =
@@ -119,7 +108,6 @@ class LoginInForm extends Component {
 }
 
 export default withRouter(LoginInPage);
-
-export {
-	LoginInForm,
+export  {
+	LoginInForm
 };

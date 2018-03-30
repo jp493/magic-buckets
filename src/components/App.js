@@ -1,71 +1,119 @@
 import React, { Component } from 'react';
-// import withAuthentication from './withAuthentication';
-import { BrowserRouter as Router, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom';
 import BucketList from './BucketList';
-import Mission from './Mission';
 import Nav from './Nav';
-import signup from './signup';
-import login from './signin';
+import Signup from './signup';
+import Login from './signin';
 import AddMission from './AddMission';
 import Admin from './Admin';
-// import firebase from '../firebase';
+import Welcome from './Welcome';
+import SkyLight from 'react-skylight';
+import { getToken } from "../services/tokenService";
+import axios from "axios";
 
 class MagicBuckets extends Component {
-	constructor(props) {
-    super(props);
-
-    this.state = {
-      authUser: null,
-    };
+	state = {
+      user: null,
+			mission: '',
+			assignTo: '',
+			missions: []
   }
 
 	componentDidMount() {
-	  // firebase.auth.onAuthStateChanged(authUser => {
-	  //   authUser
-	  //     ? this.setState(() => ({ authUser }))
-	  //     : this.setState(() => ({ authUser: null }));
-	  // });
-		// firebase.auth().onAuthStateChanged((user) => {
-    //   if (user) {
-    //     this.setState({authUser: true});
-    //   }
-    // });
+		this.currentUser()
 	}
 
-	// getUser() {
-  //   const user = firebase.auth().currentUser;
-  //   if (this.state.authUser) {
-  //     return (
-  //       <div>
-  //         Logged in as: {user.email}
-  //       </div>
-  //     );
-  //   }
-  // }
+	setUser = user => {
+		this.setState({ user })
+  }
 
-  requireAuth(nextState, replace) {
-    if (!this.state.authUser) {
-      replace({
-        pathname: '/',
-      })
-    }
+	currentUser = () => {
+		const token = getToken();
+		if (token) {
+			axios.get('/user/current', {
+				headers: {
+					Authentication: `Bearer ${token}`
+				}
+			})
+			.then(res => {
+				if (res.status === 200) {
+					const user = res.data.payload
+					this.setUser(user)
+				}
+			})
+		}
+	};
+
+	addMission = () => {
+		const {mission,assignTo,points,type}=this.state;
+		axios
+			.post(`/todos/${mission}&${assignTo}&${points}&${type}`)
+			.then()//this.refresh)
+			.catch((err) => {
+				console.log(err);
+			});
+    this.clearInput();
+		this.dialogWithCallBacks.show();
+  };
+
+	handleChange = (e) => {
+		this.setState({
+			[e.target.name]: e.target.value
+		});
+	};
+
+	clearInput = () => {
+		this.setState({ mission: "", assignTo: ""});
+	};
+
+  _executeAfterModalClose(){
+    window.location.href = '/bucket'
   }
 
 	render () {
-		console.log(this.state);
 		return (
 			<Router>
 				<div>
-					<Nav />
-					<Route path="/signin" component={login} />
-					<Route path="/signup" component={signup} />
-					<Route path="/list" component={Mission} />
-					<Route path="/bucket/:id" component={BucketList} />
-					<Route path="/add" component={AddMission} />
-					<Route path="/admin/:props" component={Admin} />
+					<Nav
+						authUser={this.state.user}
+						setUser={this.setUser}
+					/>
+					<Switch>
+					<Route exact path="/signin" render={() => {
+						if (this.state.user) {
+							return <BucketList username={this.state.user.username} />
+						} else {
+							return <Login currentUser={this.currentUser} />
+						}
+					}} />
+						<Route path="/signup" component={Signup} />
+						<Route path="/add" render={() => {return <AddMission
+							handleChange={this.handleChange}
+							addMission={this.addMission}
+	 						mission={this.state.mission} />
+						}} />
+						<Route path="/"
+						render={() => {
+							if (this.state.user) {
+								return <BucketList
+								setUser={this.setUser}
+								username={this.state.user.username} />
+							} else {
+								return <Welcome />
+							}
+						}} />
+						<Route path="/admin" component={Admin} />
+						<Route path="/welcome" component={Welcome} />
+					</Switch>
+					<SkyLight
+	          afterClose={this._executeAfterModalClose}
+	          ref={ref => this.dialogWithCallBacks = ref}
+	          title="Success">
+	            You have added mission successfully!
+	        </SkyLight>
 				</div>
 			</Router>
-	  )
+	  );
 	}
 }
 

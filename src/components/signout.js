@@ -1,14 +1,20 @@
 import React from 'react';
+import { removeToken } from "../services/tokenService";
 
-import { auth } from '../firebase';
+const SignOutButton = props => {
+  const logout = () => {
+		removeToken();
+		props.setUser(null);
+	};
 
-const SignOutButton = () =>
+return (
   <button
 		className="btn btn-danger log"
     type="button"
-    onClick={auth.doSignOut}
+    onClick={logout}
   >
     Log Out
   </button>
+)};
 
 export default SignOutButton;

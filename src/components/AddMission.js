@@ -3,35 +3,35 @@ import React from "react";
 const AddMission = props => {
   const { handleChange, addMission, mission, assignTo, points, type} = props;
   return (
-    <div className="Add form-horizontal container">
+    <div className="col-md-10">
 			<div className="cols-sm-6 form-group float-label-control">
-					<label className="control-label">What is the mission about?</label>
+					<label className="control-label">ENTER MISSION DESCRIPTION</label>
 					<textarea name='mission'
 						className="form-control"
 						onChange={handleChange}
 						value={mission} />
 			</div>
-			<div className="cols-sm-10 form-group label-floating">
-				<div className="input-group">
-					<select name='assignTo' className="form-control" value={assignTo} onChange={handleChange}>
-            <option value=""> Assign to Who?</option>
-            <option value="Henry">Henry</option>
-            <option value="Faustine">Faustine</option>
-          </select>
+			<div className="cols-sm-10 form-group">
+				<div className="input-group input-sm">
+					<input name='assignTo' className="form-control mrgn-bttm-md" value={assignTo} onChange={handleChange}
+					placeholder="ASSIGN TO..."
+					type='text'
+					/>
 				</div>
 			</div>
-			<div className="cols-sm-10 form-group label-floating">
-				<div className="input-group">
-					<select name='points' className="form-control" value={points} onChange={handleChange}>
-            <option value="">How many points?</option>
-            <option value="5">5</option>
-            <option value="10">10</option>
-          </select>
+			<br />
+			<div className="cols-sm-10 form-group">
+				<div className="input-group input-sm">
+					<input name='points' 	className="form-control" value={points} 	onChange={handleChange}
+					placeholder="ENTER POINTS HERE..."
+					type='text'
+					/>
 				</div>
 			</div>
-			<div className="cols-sm-10 form-group label-floating">
-				<div className="input-group">
-					<select name='type' className="form-control" value={type} onChange={handleChange}>
+			<br />
+			<div className="cols-sm-10 form-group">
+				<div className="input-group input-sm">
+					<select name='type' className="form-control mrgn-bttm-md" value={type} onChange={handleChange}>
             <option value="">Which buckets?</option>
             <option value="Saving">Saving</option>
             <option value="Giving">Giving</option>
@@ -39,6 +39,7 @@ const AddMission = props => {
           </select>
 				</div>
 			</div>
+			<br />
       <input type="hidden" name='isActive' value='true'  />
 			<div className="form-group container">
 				<button type="button" className="btn btn-info" onClick={ addMission }>
