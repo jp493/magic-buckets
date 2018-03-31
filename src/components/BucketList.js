@@ -60,13 +60,14 @@ class BucketList extends Component {
 	};
 
 	handleSubmitTransfer = (e) => {
-		var {transferTo, transferPoints} = this.state;
-		var transferFrom = this.state.buckets[0].points - transferPoints; //TODO: make it by _id
-
+		var {transferTo, transferPoints, buckets} = this.state;
+		var username = this.props.username;
+		var transferFrom_id = buckets.find(x => (x.type ==="Saving" && x.belongsTo === username))._id;
+		var transferTo_id = buckets.find(x => (x.type === transferTo && x.belongsTo === username))._id;
 		axios
-			.patch(`/buckets/${transferFrom}`)
+			.patch(`/buckets/transfer/${transferPoints}/${transferFrom_id}`)
 			.then(
-				axios.patch(`/buckets/transfer/${transferTo}&${transferPoints}`),
+				axios.patch(`/buckets/${transferPoints}/${transferTo_id}`),
 				window.location.href = '/')
 			.catch((err) => {
 				console.log(err);
@@ -116,7 +117,8 @@ class BucketList extends Component {
 											 assignTo={assignTo}
 											 type={item.type}
 											 showbox={showbox}
-											 saving_points={item.points} />
+											 saving_points={item.points}
+											 _id={item._id} />
 									 )}
 								</div>
 							</div>

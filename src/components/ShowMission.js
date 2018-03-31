@@ -11,10 +11,10 @@ const removeMission = index => {
 };
 
 const missionCompleted = props => {
-	const {index, points}=props;
+	const {index, points, _id}=props;
 	axios
-		.patch(`/todos/${index}`)
-		.then(axios.patch(`/buckets/${points}`))
+		.patch(`/todos/${index}`)//change status to done
+		.then(axios.patch(`/buckets/${points}/${_id}`))
 		.catch((err) => {
 			console.log(err);
 		});
@@ -26,7 +26,8 @@ const editMission = props => {
 };
 
 const ShowMission = (...items) => {
-	const init_points = items[1];
+	// const init_points = items[1];
+	const bucket_id = items[2];
 	return items[0].map((item, index) => (
 		<div id="missions-for-saving" className="col-sm-6 collapse in" key={index}>
 			<div className={`panel panel-primary ${item.isActive ?'':'disabled'} ${item.status !== 'done' ?'':'disabled'}`}>
@@ -34,7 +35,7 @@ const ShowMission = (...items) => {
 					<button
 					className="btn btn-info completed"
 					type="button"
-					onClick={() => missionCompleted({'index':item._id,'points':item.points+init_points})}>
+					onClick={() => missionCompleted({'index':item._id,'points':item.points, '_id':bucket_id})}>
 					<span className="glyphicon glyphicon-edit"></span>Done</button>
 					<h3 className="panel-title"> <span className="btn">Mission #{ index+1 } to {item.assignTo}</span></h3>
 					<button
@@ -58,12 +59,12 @@ const ShowMission = (...items) => {
 }
 
 const List = (props) => {
-	let {missions, assignTo, type, saving_points} = props;
+	let {missions, assignTo, type, saving_points, _id} = props;
 	const filteredElements = typeof (assignTo) === 'undefined' ? missions : missions
 		.filter((item, index) => item.assignTo.includes(assignTo) && item.isActive && item.type.includes(type))
 	return (
 		<div className={`container`}>
-			 {ShowMission(filteredElements, saving_points)}
+			 {ShowMission(filteredElements, saving_points, _id)}
 		</div>
 	)
 }

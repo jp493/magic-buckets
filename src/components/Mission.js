@@ -9,7 +9,8 @@ class MissionList extends Component {
 			mission: '',
 			assignTo: '',
 			missions: [],
-			saving_points: 0
+			saving_points: 0,
+			_id: ''
 		};
 	};
 
@@ -22,7 +23,7 @@ class MissionList extends Component {
 	};
 
 	render() {
-		const { missions, assignTo, type, saving_points } = this.props;
+		const { missions, assignTo, type, saving_points, _id } = this.props;
 
     return (
 				<div className="container">
@@ -31,6 +32,7 @@ class MissionList extends Component {
 					 assignTo={assignTo}
 					 type={type}
 					 saving_points={saving_points}
+					 _id={_id}
 					/>
 				</div>
     );

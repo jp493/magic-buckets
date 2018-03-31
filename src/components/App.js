@@ -67,7 +67,7 @@ class MagicBuckets extends Component {
 	};
 
   _executeAfterModalClose(){
-    window.location.href = '/bucket'
+    window.location.href = '/'
   }
 
 	render () {

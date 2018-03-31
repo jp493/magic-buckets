@@ -30,14 +30,22 @@ class SignUpForm extends Component {
 	}
 
 	createBuckets = () => {
-		//TODO: add Saving bucket for this new user
-		const type = "Saving",
-		isFull = false,
-		points = 50,
-		belongsTo = this.state.username;
+		for (var i = 0; i < 3; i++) {
+			var type, isFull = false,
+			points = ( i === 0 ) ? 50 : 0 ,
+			belongsTo = this.state.username;
 
-		axios
-			.post('/buckets', {type, isFull, points, belongsTo})
+			if (i === 0) {
+				type = "Saving"
+			} else if (i ===1){
+				type = "Giving"
+			} else if (i ===2){
+				type = "Spending"
+			}
+
+			axios
+				.post('/buckets', {type, isFull, points, belongsTo})
+		}
 	}
 
 	onSubmit = (e) => {
