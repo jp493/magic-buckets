@@ -41,8 +41,7 @@ class BucketList extends Component {
 		.then((res) => {
 			if (res.data.payload) {
 				this.setState({ buckets: res.data.payload });
-			}
-		});
+			}});
 		axios.get("/todos").then((res) => {
 			if (res.data.payload) {
 				this.setState({ missions: res.data.payload });
@@ -60,11 +59,6 @@ class BucketList extends Component {
 		}
 	};
 
-  _executeAfterModalClose(){
-		// console.log('close');
-    // window.location.href = '/bucket/1'
-  };
-
 	handleSubmitTransfer = (e) => {
 		var {transferTo, transferPoints} = this.state;
 		var transferFrom = this.state.buckets[0].points - transferPoints; //TODO: make it by _id
@@ -73,7 +67,7 @@ class BucketList extends Component {
 			.patch(`/buckets/${transferFrom}`)
 			.then(
 				axios.patch(`/buckets/transfer/${transferTo}&${transferPoints}`),
-				window.location.href = '/bucket/1')
+				window.location.href = '/')
 			.catch((err) => {
 				console.log(err);
 			});

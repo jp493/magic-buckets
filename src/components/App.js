@@ -86,13 +86,13 @@ class MagicBuckets extends Component {
 							return <Login currentUser={this.currentUser} />
 						}
 					}} />
-						<Route path="/signup" component={Signup} />
+						<Route exact path="/signup" component={Signup} />
 						<Route path="/add" render={() => {return <AddMission
 							handleChange={this.handleChange}
 							addMission={this.addMission}
 	 						mission={this.state.mission} />
 						}} />
-						<Route path="/"
+						<Route exact path="/"
 						render={() => {
 							if (this.state.user) {
 								return <BucketList
@@ -103,7 +103,7 @@ class MagicBuckets extends Component {
 							}
 						}} />
 						<Route path="/admin" component={Admin} />
-						<Route path="/welcome" component={Welcome} />
+						<Route exact path="/welcome" component={Welcome} />
 					</Switch>
 					<SkyLight
 	          afterClose={this._executeAfterModalClose}

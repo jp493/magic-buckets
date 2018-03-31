@@ -11,32 +11,52 @@ class Admin extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   };
+	// When the compoennt is loaded for the first time.
+    componentWillMount() {
+        if (this.props.missions) this.setDefaultState(this.props.missions);
+    }
+
+    // When the component is loaded again.
+    componentWillReceiveProps(nextProps) {
+        this.setDefaultState(nextProps);
+    }
+
+    // Prefill input fields with the available data by setting default state.
+    setDefaultState(missions) {
+        // Set state using data.
+        this.setState({
+            points: missions.points,
+            status: missions.status,
+						description: missions.description, gender: missions.gender,
+						type: missions.type
+        })
+    }
 
 	componentDidMount() {
 		var id = this.props.history.location.pathname.split('/')[2];
 		this.refresh(id);
 	};
 
-	refresh = (props) => {console.log("dfdf")
-		axios.get(`/todo/${props}`).then((res) => {
+	refresh = (props) => {
+		axios.get(`/todos/${props}`).then((res) => {
 			if (res.data.payload) {
 				this.setState({ missions: res.data.payload });
 			}
-		},
-		window.location.href = '/bucket/1');
+		})
 	};
 
 	handleSubmit = e => {
-		e.preventDefault(); // to avoid refresh page auto
+		e.preventDefault();
 		let { missions, points, status, description, gender, type } = this.state;
 
 		var today = new Date().getFullYear();
-		description = (description !== '') ? description : missions.description;
-		status = (status !== '') ? status : missions.status;
-		gender = (gender !== '') ? gender : missions.gender;
-		type = (type !== '') ? type : missions.type;
+		description = (description !== undefined) ? description : missions.description;
+		status = (status !== undefined) ? status : missions.status;
+		gender = (gender !== undefined) ? gender : missions.gender;
+		type = (type !== undefined) ? type : missions.type;
+		points = (points !== undefined) ? points : missions.points;
 
-		const _id = missions._id; //'5aa8957fd153a87d0dfba1e7';
+		const _id = missions._id;
 
 		axios.post(`/todo/${_id}/edit`, {
 			assignTo:missions.assignTo,
@@ -48,7 +68,7 @@ class Admin extends Component {
 			createdBy:today,
 			isActive:true
 		})
-		.then(this.refresh);
+		.then(window.location.href = '/');
 	};
 
 	handleChange = (e) => {
@@ -68,10 +88,10 @@ class Admin extends Component {
 				<div>
 					<div className="col-sm-6 collapse in">
 						<h4>Edit a Mission:</h4>
-						 <Edit
-						 	missions={missions}
-							handleChange={this.handleChange}
-							handleSubmit={this.handleSubmit} />
+						<Edit
+						 missions={missions}
+						 handleChange={this.handleChange}
+						 handleSubmit={this.handleSubmit} />
 					</div>
 				</div>
 	    );

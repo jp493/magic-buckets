@@ -11,7 +11,8 @@ const EditMission = ({handleChange, handleSubmit, missions, points, status, desc
 								<p>{bucket.belongsTo}</p>*/}
 								<p>assign_to: {missions.assignTo}</p>
 								<p>description: <br /><textarea name="description" placeholder={missions.description} onChange={handleChange} /></p>
-								<p>gender: <input name="gender" value={missions.gender} placeholder={missions.gender} onChange={handleChange} /></p>
+								<p>gender: <input name="gender" value={gender}
+								defaultValue={missions.gender} placeholder={missions.gender} onChange={handleChange} /></p>
 								<p>points: <input name="points" placeholder={missions.points} onChange={handleChange} /></p>
 								{/*<p>created_by: <input name="createdBy" placeholder={missions.createdBy} onChange={handleChange} /></p>*/}
 								<p>status: <input name="status" placeholder={missions.status} onChange={handleChange} /></p>

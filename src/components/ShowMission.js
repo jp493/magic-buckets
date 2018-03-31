@@ -7,7 +7,7 @@ const removeMission = index => {
 		.catch((err) => {
 			console.log(err);
 		});
-		window.location.href = '/bucket/1';
+		window.location.href = '/';
 };
 
 const missionCompleted = props => {
@@ -18,7 +18,7 @@ const missionCompleted = props => {
 		.catch((err) => {
 			console.log(err);
 		});
-		window.location.href = '/bucket/1';
+		window.location.href = '/';
 };
 
 const editMission = props => {

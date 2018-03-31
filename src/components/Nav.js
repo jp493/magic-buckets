@@ -7,7 +7,7 @@ import SignOutButton from './signout';
 const Nav = (props) =>
   <div>
     { props.authUser
-        ? <NavigationAuth setUser={props.setUser}/>
+        ? <NavigationAuth setUser={props.setUser} user={props.authUser.username}/>
         : <NavigationNonAuth />
     }
   </div>
@@ -17,8 +17,9 @@ const NavigationAuth = (props) =>
        <Link className="navbar-brand" to="/">MAGIC BUCKETS</Link>
     </div>
 	  <ul className="nav navbar-nav">
-	    <li><Link to={routes.BUCKET}>My Buckets</Link></li>
+	    <li><Link to={routes.HOME}>My Buckets</Link></li>
 	    <li><Link to={routes.ADD}>Add a Mission</Link></li>
+			<li className={props.user !== 'Jane'?`hide`:''}><Link to={routes.ADMIN}>Admin</Link></li>
 	  </ul>
 		<ul className="nav navbar-nav navbar-right">
       <li><SignOutButton setUser={props.setUser}/></li>

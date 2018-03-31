@@ -5,6 +5,7 @@ const SignOutButton = props => {
   const logout = () => {
 		removeToken();
 		props.setUser(null);
+		window.location.href = '/'
 	};
 
 return (

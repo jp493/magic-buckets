@@ -13,7 +13,6 @@ const Initial_State = {
 	confirmation: '',
 	gender: '',
 	theme: '',
-	// isParent: false,
 	error: null,
 };
 
@@ -30,6 +29,17 @@ class SignUpForm extends Component {
 		});
 	}
 
+	createBuckets = () => {
+		//TODO: add Saving bucket for this new user
+		const type = "Saving",
+		isFull = false,
+		points = 50,
+		belongsTo = this.state.username;
+
+		axios
+			.post('/buckets', {type, isFull, points, belongsTo})
+	}
+
 	onSubmit = (e) => {
 		const {
 			username,
@@ -42,10 +52,12 @@ class SignUpForm extends Component {
 		e.preventDefault();
 		axios
 			.post('/auth/signup', {email, password, username})
-			.then(authUser => {
-					this.setState(() => ({ ...Initial_State }));
-					history.push(routes.HOME);
-			})
+			.then(
+					authUser =>
+					this.setState(() => ({ ...Initial_State })),
+					this.createBuckets(),
+					history.push(routes.HOME)
+			)
 			.catch((err) => {
 				// this.setState(byPropKey('error', error));
 			});
