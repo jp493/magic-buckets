@@ -63,7 +63,7 @@ class LoginInForm extends Component {
 					<div className="form-group">
 						<label className="cols-sm-2 control-label">Your Email</label>
 						<div className="cols-sm-10">
-							<div className="input-group">
+							<div className="input-group login-form">
 								<span className="input-group-addon"><i className="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
 								<input
 									name='email'
@@ -81,7 +81,7 @@ class LoginInForm extends Component {
 					<div className="form-group">
 						<label className="cols-sm-2 control-label">Your Password</label>
 						<div className="cols-sm-10">
-							<div className="input-group">
+							<div className="input-group login-form">
 								<span className="input-group-addon"><i className="glyphicon glyphicon-dashboard" aria-hidden="true"></i></span>
 								<input
 									name='password'

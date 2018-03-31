@@ -10,11 +10,19 @@ const removeMission = index => {
 		window.location.href = '/';
 };
 
-const missionCompleted = props => {
-	const {index, points, _id}=props;
+const missionCompleted = props => {debugger
+	const { index, points, _id, type }=props;
 	axios
 		.patch(`/todos/${index}`)//change status to done
-		.then(axios.patch(`/buckets/${points}/${_id}`))
+		.then(()=>{
+			if (type === "Saving") {
+				axios.patch(`/buckets/${points}/${_id}`)
+			} else if (type === "Giving"){ // 50% discount
+				axios.patch(`/buckets/transfer/${points/2}/${_id}`)
+			} else { // minus available points when done
+				axios.patch(`/buckets/transfer/${points}/${_id}`)
+			}
+		})
 		.catch((err) => {
 			console.log(err);
 		});
@@ -28,6 +36,7 @@ const editMission = props => {
 const ShowMission = (...items) => {
 	// const init_points = items[1];
 	const bucket_id = items[2];
+	const bucket_type = items[3];
 	return items[0].map((item, index) => (
 		<div id="missions-for-saving" className="col-sm-6 collapse in" key={index}>
 			<div className={`panel panel-primary ${item.isActive ?'':'disabled'} ${item.status !== 'done' ?'':'disabled'}`}>
@@ -35,7 +44,7 @@ const ShowMission = (...items) => {
 					<button
 					className="btn btn-info completed"
 					type="button"
-					onClick={() => missionCompleted({'index':item._id,'points':item.points, '_id':bucket_id})}>
+					onClick={() => missionCompleted({'index':item._id,'points':item.points, '_id':bucket_id, 'type':bucket_type})}>
 					<span className="glyphicon glyphicon-edit"></span>Done</button>
 					<h3 className="panel-title"> <span className="btn">Mission #{ index+1 } to {item.assignTo}</span></h3>
 					<button
@@ -64,7 +73,7 @@ const List = (props) => {
 		.filter((item, index) => item.assignTo.includes(assignTo) && item.isActive && item.type.includes(type))
 	return (
 		<div className={`container`}>
-			 {ShowMission(filteredElements, saving_points, _id)}
+			 {ShowMission(filteredElements, saving_points, _id, type)}
 		</div>
 	)
 }

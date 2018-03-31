@@ -92,7 +92,7 @@ class SignUpForm extends Component {
 					<div className="form-group">
 						<label className="cols-sm-2 control-label">Your Name</label>
 						<div className="cols-sm-10">
-							<div className="input-group">
+							<div className="input-group login-form">
 								<span className="input-group-addon"><i className="glyphicon glyphicon-share" aria-hidden="true"></i></span>
 								<input
 									name='username'
@@ -110,7 +110,7 @@ class SignUpForm extends Component {
 					<div className="form-group">
 						<label className="cols-sm-2 control-label">Your Email</label>
 						<div className="cols-sm-10">
-							<div className="input-group">
+							<div className="input-group login-form">
 								<span className="input-group-addon"><i className="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
 								<input
 									name='email'
@@ -128,7 +128,7 @@ class SignUpForm extends Component {
 					<div className="form-group">
 						<label className="cols-sm-2 control-label">Your Password</label>
 						<div className="cols-sm-10">
-							<div className="input-group">
+							<div className="input-group login-form">
 								<span className="input-group-addon"><i className="glyphicon glyphicon-dashboard" aria-hidden="true"></i></span>
 								<input
 									name='password'
@@ -146,7 +146,7 @@ class SignUpForm extends Component {
 					<div className="form-group">
 						<label className="cols-sm-2 control-label">Confirm Password</label>
 						<div className="cols-sm-10">
-							<div className="input-group">
+							<div className="input-group login-form">
 								<span className="input-group-addon"><i className="glyphicon glyphicon-check" aria-hidden="true"></i></span>
 								<input
 									name='confirmation'

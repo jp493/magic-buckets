@@ -74,19 +74,21 @@ input::-webkit-input-placeholder {
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-
 }
 
 .main-center{
  	margin-top: 30px;
  	margin: 0 auto;
  	max-width: 330px;
-    padding: 40px 40px;
-
+  padding: 40px 40px;
 }
 
 .login-button{
 	margin-top: 5px;
+}
+
+.input-group.login-form {
+	display: table;
 }
 
 .login-register{
