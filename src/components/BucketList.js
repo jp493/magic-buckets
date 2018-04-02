@@ -59,6 +59,19 @@ class BucketList extends Component {
 		}
 	};
 
+	resetBucket = (data) => {
+		var init_points = (data.type === 'Saving')?50 :0
+
+		// console.log(`/buckets/reset/${init_points}/${data._id}`);
+
+		axios
+			.patch(`/buckets/reset/${init_points}/${data._id}`)
+			.then(window.location.href = '/')
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
 	handleSubmitTransfer = (e) => {
 		var {transferTo, transferPoints, buckets} = this.state;
 		var username = this.props.username;
@@ -109,6 +122,8 @@ class BucketList extends Component {
 										 <div className="panel-body">
 											<button type="button" className="btn btn-info" onClick={ this.toggleBox }><span className="glyphicon glyphicon-share"></span>Toggle List</button>
 											<button type="button" className="btn btn-warning transfer" onClick={this.showTransferPoints }><span className="glyphicon glyphicon-share"></span>Transfer</button>
+											<button type="button" className="btn btn-warning reset"
+											onClick={ () => this.resetBucket(item) }><span className="glyphicon glyphicon-share"></span>Reset {item.type}</button>
 										</div>
 									 </a>
 									 {showbox && (
