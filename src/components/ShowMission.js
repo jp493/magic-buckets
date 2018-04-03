@@ -10,7 +10,7 @@ const removeMission = index => {
 		window.location.href = '/';
 };
 
-const missionCompleted = props => {debugger
+const missionCompleted = props => {
 	const { index, points, _id, type }=props;
 	axios
 		.patch(`/todos/${index}`)//change status to done
@@ -30,7 +30,7 @@ const missionCompleted = props => {debugger
 };
 
 const editMission = props => {
-	window.location.href = `/admin/${props}`;
+	window.location.href = `/edit/${props}`;
 };
 
 const ShowMission = (...items) => {

@@ -32,7 +32,7 @@ const AddMission = props => {
 			<div className="cols-sm-10 form-group">
 				<div className="input-group input-sm">
 					<select name='type' className="form-control mrgn-bttm-md" value={type} onChange={handleChange}>
-            <option value="">Which buckets?</option>
+            <option value="">Choose Buckets</option>
             <option value="Saving">Saving</option>
             <option value="Giving">Giving</option>
             <option value="Spending">Spending</option>

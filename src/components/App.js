@@ -6,10 +6,12 @@ import Signup from './signup';
 import Login from './signin';
 import AddMission from './AddMission';
 import Admin from './Admin';
+import Edit from './Edit';
 import Welcome from './Welcome';
 import SkyLight from 'react-skylight';
 import { getToken } from "../services/tokenService";
 import axios from "axios";
+import '../App.css';
 
 class MagicBuckets extends Component {
 	state = {
@@ -103,6 +105,7 @@ class MagicBuckets extends Component {
 							}
 						}} />
 						<Route path="/admin" component={Admin} />
+						<Route path="/edit" component={Edit} />
 						<Route exact path="/welcome" component={Welcome} />
 					</Switch>
 					<SkyLight

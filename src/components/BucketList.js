@@ -3,7 +3,6 @@ import Mission from './Mission';
 import { getToken } from "../services/tokenService";
 import axios from "axios";
 import SkyLight from 'react-skylight';
-import '../App.css';
 
 class BucketList extends Component {
 	constructor(props) {
@@ -62,8 +61,6 @@ class BucketList extends Component {
 	resetBucket = (data) => {
 		var init_points = (data.type === 'Saving')?50 :0
 
-		// console.log(`/buckets/reset/${init_points}/${data._id}`);
-
 		axios
 			.patch(`/buckets/reset/${init_points}/${data._id}`)
 			.then(window.location.href = '/')
@@ -96,7 +93,7 @@ class BucketList extends Component {
 	};
 
   render() {
-		const { buckets, showbox, assignTo, missions, showTransfer}=this.state;
+		const { buckets, showbox, assignTo, missions,}=this.state;
 
     return (
 			<div className="container">
@@ -121,9 +118,9 @@ class BucketList extends Component {
 										 <h2 className="ssb-title">{ item.type }</h2>
 										 <div className="panel-body">
 											<button type="button" className="btn btn-info" onClick={ this.toggleBox }><span className="glyphicon glyphicon-share"></span>Toggle List</button>
-											<button type="button" className="btn btn-warning transfer" onClick={this.showTransferPoints }><span className="glyphicon glyphicon-share"></span>Transfer</button>
+											<button type="button" className="btn btn-danger transfer" onClick={this.showTransferPoints }><span className="glyphicon glyphicon-share"></span>Transfer</button>
 											<button type="button" className="btn btn-warning reset"
-											onClick={ () => this.resetBucket(item) }><span className="glyphicon glyphicon-share"></span>Reset {item.type}</button>
+											onClick={ () => this.resetBucket(item) }><span className="glyphicon glyphicon-share"></span>Reset</button>
 										</div>
 									 </a>
 									 {showbox && (

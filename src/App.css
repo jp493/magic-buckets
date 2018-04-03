@@ -202,6 +202,22 @@ h2.ssb-title {
 	margin-right: 10px;
 }
 
+.radio input[type=radio] {
+	position: relative;
+	float: left;
+}
+
+.list-group-item .glyphicon.glyphicon-envelope {
+		padding-left: 10px;
+		border-right: 2px;
+		margin-left: 15px !important;
+}
+
+label input[type=radio] {
+		float: left;
+		margin-right: 8px;
+}
+
 /* progress circle */
 .progress{
     width: 150px;

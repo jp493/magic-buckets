@@ -1,97 +1,64 @@
 import React, { Component } from 'react';
-// import AddMission from './AddMission';
-import Edit from './Edit';
 import axios from "axios";
+import { getToken } from "../services/tokenService";
 
 class Admin extends Component {
-	constructor(props) {
-    super(props);
-    this.state = {missions: [], points: '', status: '', description: '', gender:'', type:''};
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+	state = {
+    users: []
   };
-	// When the compoennt is loaded for the first time.
-    componentWillMount() {
-        if (this.props.missions) this.setDefaultState(this.props.missions);
-    }
-
-    // When the component is loaded again.
-    componentWillReceiveProps(nextProps) {
-        this.setDefaultState(nextProps);
-    }
-
-    // Prefill input fields with the available data by setting default state.
-    setDefaultState(missions) {
-        // Set state using data.
-        this.setState({
-            points: missions.points,
-            status: missions.status,
-						description: missions.description, gender: missions.gender,
-						type: missions.type
-        })
-    }
 
 	componentDidMount() {
-		var id = this.props.history.location.pathname.split('/')[2];
-		this.refresh(id);
+		this.refresh();
 	};
 
-	refresh = (props) => {
-		axios.get(`/todos/${props}`).then((res) => {
-			if (res.data.payload) {
-				this.setState({ missions: res.data.payload });
+	refresh = () => {
+		const token = getToken()
+		axios.get(`/user/all`, {
+			headers: {
+				Authorization: `Bearer ${token}`
 			}
 		})
-	};
-
-	handleSubmit = e => {
-		e.preventDefault();
-		let { missions, points, status, description, gender, type } = this.state;
-
-		var today = new Date().getFullYear();
-		description = (description !== undefined) ? description : missions.description;
-		status = (status !== undefined) ? status : missions.status;
-		gender = (gender !== undefined) ? gender : missions.gender;
-		type = (type !== undefined) ? type : missions.type;
-		points = (points !== undefined) ? points : missions.points;
-
-		const _id = missions._id;
-
-		axios.post(`/todo/${_id}/edit`, {
-			assignTo:missions.assignTo,
-			description:description,
-			type:type,
-			gender:gender,
-			status:status,
-			points:parseInt(points),
-			createdBy:today,
-			isActive:true
+		.then(res => {
+			if (res.status === 200) {
+				const users = res.data.payload
+				this.setState({ users });
+			}
 		})
-		.then(window.location.href = '/');
-	};
+};
 
-	handleChange = (e) => {
-		if (e.target.value !== '') {
-			this.setState({
-				[e.target.name]:e.target.value
-			})
-		}
+	handleDelete = (props) => {
+		const {id, username} = props;
+
+		axios
+			.delete(`/user/${id}`)
+			.catch((err) => {
+				console.log(err);
+			});
+		axios.delete(`/buckets/user/${username}`)
+		window.location.href = '/admin';
 	};
 
 	render() {
 			const {
-				missions
+				users
 			} = this.state;
 
 	    return (
 				<div>
 					<div className="col-sm-6 collapse in">
-						<h4>Edit a Mission:</h4>
-						<Edit
-						 missions={missions}
-						 handleChange={this.handleChange}
-						 handleSubmit={this.handleSubmit} />
+						<h4>List of all Users</h4>
+						<ul className="list-group list-group-flush">
+		          {users.map((user, index) => {
+		            return <li className="list-group-item">
+								{/*{JSON.stringify(user, null, 3)}*/}
+
+								<label for={user.id}><span className={user.username === 'Jane'?'badge':''}><b>{user.username}</b>   </span><span className="glyphicon glyphicon-envelope"> {user.email}</span>
+									<input type="radio" value={user._id} name={user._id} id={user._id} />
+								</label>
+								<button type="button" className="btn btn-link" onClick={()=>this.handleDelete({'id':user._id, 'username': user.username})}>Delete</button>
+								</li>
+		          })}
+		        </ul>
 					</div>
 				</div>
 	    );

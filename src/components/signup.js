@@ -64,7 +64,7 @@ class SignUpForm extends Component {
 					authUser =>
 					this.setState(() => ({ ...Initial_State })),
 					this.createBuckets(),
-					history.push(routes.HOME)
+					history.push(routes.SIGN_IN)
 			)
 			.catch((err) => {
 				// this.setState(byPropKey('error', error));
